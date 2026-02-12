@@ -1,49 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>Will You Be My Valentine?</title>
+<title>For My Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-  body {
-    background: #ffe6e6;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    padding-top: 100px;
-  }
-  h1 { color: #d0006f; }
-  button {
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    margin: 20px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  #noBtn {
-    position: relative;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  text-align: center;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+h1 {
+  margin-top: 100px;
+  font-size: 38px;
+}
+
+button {
+  font-size: 20px;
+  padding: 12px 25px;
+  margin: 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#yesBtn {
+  background-color: #ff0066;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.1);
+}
+
+#noBtn {
+  background-color: white;
+  color: black;
+  position: absolute;
+}
+
+/* Celebration Screen */
+.celebrate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 35px;
+  text-align: center;
+  animation: pop 1s ease-in-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 </style>
 </head>
+
 <body>
 
-<h1>Will You Be My Valentine?</h1>
-<button id="yesBtn">💖 Yes!</button>
-<button id="noBtn">No</button>
+<h1>Will You Be My Valentine? 💖</h1>
+
+<button id="yesBtn">Yes 😍</button>
+<button id="noBtn">No 😢</button>
 
 <script>
-  // Move the "No" button randomly when hovered
-  const noBtn = document.getElementById('noBtn');
-  noBtn.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - 150);
-    const y = Math.random() * (window.innerHeight - 150);
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = x + 'px';
-    noBtn.style.top = y + 'px';
-  });
+const noBtn = document.getElementById("noBtn");
 
-  // Yes button celebration
-  document.getElementById('yesBtn').addEventListener('click', () => {
-    alert("💘 She said YES! 💘");
-  });
+// Make "No" button run away
+noBtn.addEventListener("mouseover", function() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// When she clicks YES
+document.getElementById("yesBtn").addEventListener("click", function() {
+  
+  // First popup
+  alert("I knew you would say YES!!! 😏💘✨");
+
+  // Then change screen
+  document.body.innerHTML = `
+    <div class="celebrate">
+      💕 You just made me the happiest person alive! 💍❤️<br><br>
+      Forever starts now 😍✨
+    </div>
+  `;
+});
 </script>
 
 </body>
