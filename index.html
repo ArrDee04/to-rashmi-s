@@ -1,87 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Simple Chat</title>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
 <style>
-/* ... (same CSS as before) ... */
+  body {
+    background: #ffe6e6;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    padding-top: 100px;
+  }
+  h1 { color: #d0006f; }
+  button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #noBtn {
+    position: relative;
+  }
 </style>
 </head>
 <body>
 
-<div id="chat-container">
-  <div id="message-area"></div>
-  <div id="input-area">
-    <input type="text" id="message-input" placeholder="Type your message...">
-    <button id="send-button">Send</button>
-  </div>
-</div>
+<h1>Will You Be My Valentine?</h1>
+<button id="yesBtn">💖 Yes!</button>
+<button id="noBtn">No</button>
 
-<div id="name-modal">
-    <h2>Enter Your Name</h2>
-    <input type="text" id="name-input" placeholder="Your Name">
-    <button id="name-submit">Submit</button>
-</div>
+<script>
+  // Move the "No" button randomly when hovered
+  const noBtn = document.getElementById('noBtn');
+  noBtn.addEventListener('mouseover', () => {
+    const x = Math.random() * (window.innerWidth - 150);
+    const y = Math.random() * (window.innerHeight - 150);
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+  });
 
-<script src="/socket.io/socket.io.js"></script>  <script>
-const messageArea = document.getElementById('message-area');
-const messageInput = document.getElementById('message-input');
-const sendButton = document.getElementById('send-button');
-const nameModal = document.getElementById('name-modal');
-const nameInput = document.getElementById('name-input');
-const nameSubmit = document.getElementById('name-submit');
-
-let userName = "";
-let socket; // Declare socket variable
-
-nameSubmit.addEventListener('click', () => {
-    userName = nameInput.value;
-    if (userName.trim() !== "") {
-        nameModal.style.display = 'none';
-
-        // Initialize Socket.IO connection AFTER getting the username
-        socket = io(); // Connect to the Socket.IO server (make sure your server is running)
-
-        socket.on('connect', () => {
-            console.log('Connected to server!');
-        });
-
-        socket.on('chat message', (msg) => {
-            appendMessage(msg, 'other');
-        });
-
-    } else {
-        alert("Please enter a name.");
-    }
-});
-
-
-
-sendButton.addEventListener('click', () => {
-  const message = messageInput.value;
-  if (message.trim() !== "") {
-    appendMessage(message, 'user');
-    messageInput.value = '';
-    if (socket) { // Only send if socket is initialized
-        socket.emit('chat message', { message: message, user: userName }); // Send with username
-    }
-  }
-});
-
-messageInput.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter') {
-        sendButton.click();
-    }
-});
-
-function appendMessage(message, sender) {
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message', sender);
-  messageDiv.textContent = (sender === 'user' ? userName + ": " : message.user + ": ") + message.message; // Display username
-  messageArea.appendChild(messageDiv);
-  messageArea.scrollTop = messageArea.scrollHeight;
-}
-
-
+  // Yes button celebration
+  document.getElementById('yesBtn').addEventListener('click', () => {
+    alert("💘 She said YES! 💘");
+  });
 </script>
 
 </body>
