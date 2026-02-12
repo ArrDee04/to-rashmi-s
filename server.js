@@ -1,36 +1,70 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(server, {
-    cors: { // Enable CORS (important for local development)
-        origin: "http://localhost:5500", // Or wherever your client is running
-        methods: ["GET", "POST"]
+// Basic Information
+valentineName: "Rashmi"                    // Your Valentine's name
+pageTitle: "Will You Be My Valentine? 💝" // Browser tab title
+
+// Floating Background Elements
+floatingEmojis: {
+    hearts: ['❤️', '💖', '💝', '💗', '💓'],  // Heart emojis in background
+    bears: ['🧸', '🐻']                       // Bear emojis in background
+}
+
+// Questions and Buttons
+questions: {
+    first: {
+        text: "Do you like me?",                   // First question
+        yesBtn: "Yes",                             // Yes button text
+        noBtn: "No",                               // No button text
+        secretAnswer: "I don't like you, I love you! ❤️"  // Hidden message
+    },
+    second: {
+        text: "How much do you love me?",          // Second question
+        startText: "This much!",                   // Text before percentage
+        nextBtn: "Next ❤️"                         // Next button text
+    },
+    third: {
+        text: "Will you be my Valentine...?",      // Final question
+        yesBtn: "Yes!",                            // Yes button text
+        noBtn: "No"                                // No button text
     }
-});
-const path = require('path');
+}
 
-const port = process.env.PORT || 3000;  // Use environment port or 3000
+// Love Meter Messages
+loveMessages: {
+    extreme: "WOOOOW You love me that much?? 🥰🚀💝",  // Shows above 5000%
+    high: "To infinity and beyond! 🚀💝",              // Shows above 1000%
+    normal: "And beyond! 🥰"                           // Shows above 100%
+}
 
-app.use(express.static(path.join(__dirname, 'public'))); // Serve static files (your HTML)
+// Final Celebration
+celebration: {
+    title: "Yay! I'm the luckiest person...",     // Celebration title
+    message: "Now come get your gift...",          // Celebration message
+    emojis: "🎁💖🤗💝💋❤️💕"                        // Celebration emojis
+}
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html')); // Serve index.html from 'public'
-});
+// Website Colors
+colors: {
+    backgroundStart: "#ffafbd",      // Background gradient start
+    backgroundEnd: "#ffc3a0",        // Background gradient end
+    buttonBackground: "#ff6b6b",     // Button color
+    buttonHover: "#ff8787",          // Button hover color
+    textColor: "#ff4757"            // Text color
+}
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
+// Animation Settings
+animations: {
+    floatDuration: "15s",           // How long hearts float (10-20s)
+    floatDistance: "50px",          // Sideways movement (30-70px)
+    bounceSpeed: "0.5s",            // Bounce animation speed (0.3-0.7s)
+    heartExplosionSize: 1.5         // Final heart explosion size (1.2-2.0)
+}
 
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg); // Broadcast message with username
-  });
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
-
-server.listen(port, () => {
-  console.log(`listening on *:${port}`);
-});
+// Music Settings
+music: {
+    enabled: true, // Music feature is enabled
+    autoplay: true, // Try to autoplay (note: some browsers may block this)
+    musicUrl: "YOUR_CLOUDINARY_URL_HERE", // Paste your music URL here
+    startText: "🎵 Play Music", // Button text to start music
+    stopText: "🔇 Stop Music", // Button text to stop music
+    volume: 0.5 // Volume level (0.0 to 1.0)
+}
